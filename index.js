@@ -1,10 +1,10 @@
 class AsyncIterableStream {
-  constructor(generatorFactory) {
-    this.generatorFactory = generatorFactory;
+  constructor(asyncIteratorFactory) {
+    this._asyncIteratorFactory = asyncIteratorFactory;
   }
 
   next() {
-    return this.generatorFactory().next();
+    return this._asyncIteratorFactory().next();
   }
 
   async once() {
@@ -12,7 +12,7 @@ class AsyncIterableStream {
   }
 
   [Symbol.asyncIterator]() {
-    return this.generatorFactory();
+    return this._asyncIteratorFactory();
   }
 }
 

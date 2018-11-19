@@ -4,6 +4,8 @@ A readable stream which can be iterated over using a for-await-of loop.
 The `AsyncIterableStream` constructor accepts an `asyncIteratorFactory` as argument; this can be either an async generator function or a regular function which returns an async iterator.
 In the case of a generator function, the `asyncIteratorFactory` should yield a sequence of `Promise` objects which resolve one at a time in the same order as they appear in the sequence.
 
+For a concrete implementation of `AsyncIterableStream`, see `WritableAsyncIterableStream`: https://github.com/SocketCluster/writable-async-iterable-stream
+
 ## Installation
 
 ```

@@ -26,11 +26,11 @@ The `AsyncIterableStream` class exposes the following methods:
   for await (let data of asyncIterableStream) {
     console.log(data);
   }
-})()
+})();
 
 // Consume only the next data object which is written to the stream.
 (async () => {
   let data = await asyncIterableStream.once();
   console.log(data);
-})()
+})();
 ```

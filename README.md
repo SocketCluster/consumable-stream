@@ -17,8 +17,8 @@ npm install async-iterable-stream
 The `AsyncIterableStream` class exposes the following methods:
 
 - `[Symbol.asyncIterator]`: Makes the instance iterable using a for-await-of loop.
-- `once`: Returns a `Promise` which will resolve when the next data is received; the resolved value will be the data.
-- `next`: Same as `once()` except that the resolved value will be an object in the form `{value: data, done: boolean}`.
+- `next`: Returns a `Promise` which will resolve an object in the form `{value: data, done: boolean}` whenever some data is received or when the stream ends.
+- `once`: Similar to `next()` except that the resolved value will be the raw data and it will not resolve when the stream ends. Note that once `once()` is called, it cannot be cancelled; the affected closure will stay in memory until either `once()` resolves or until the stream is garbage collected.
 
 ```js
 // Consume data objects from asyncIterableStream as they are written to the stream.

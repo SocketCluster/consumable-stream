@@ -8,7 +8,12 @@ class AsyncIterableStream {
   }
 
   async once() {
-    return (await this.next()).value;
+    while (true) {
+      let result = await this.next();
+      if (!result.done) {
+        return result.value;
+      }
+    }
   }
 
   [Symbol.asyncIterator]() {

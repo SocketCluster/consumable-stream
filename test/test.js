@@ -19,7 +19,7 @@ function cancelAllPendingWaits() {
   }
 }
 
-describe('AsyncIterableStream as a generator wrapper', () => {
+describe('AsyncIterableStream', () => {
   let streamData;
   let stream;
 

@@ -10,9 +10,11 @@ class AsyncIterableStream {
   async once() {
     while (true) {
       let result = await this.next();
-      if (!result.done) {
-        return result.value;
+      if (result.done) {
+        // If stream was ended, this function should never resolve.
+        await new Promise(() => {});
       }
+      return result.value;
     }
   }
 

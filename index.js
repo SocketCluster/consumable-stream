@@ -1,25 +1,25 @@
+const MUST_OVERRIDE_METHOD_MESSAGE = 'Method must be overriden by subclass';
+
 class AsyncIterableStream {
-  constructor(asyncIteratorFactory) {
-    this._asyncIteratorFactory = asyncIteratorFactory;
+  next() {
+    throw new TypeError(MUST_OVERRIDE_METHOD_MESSAGE);
   }
 
-  next() {
-    return this._asyncIteratorFactory().next();
+  createAsyncIterator() {
+    throw new TypeError(MUST_OVERRIDE_METHOD_MESSAGE);
   }
 
   async once() {
-    while (true) {
-      let result = await this.next();
-      if (result.done) {
-        // If stream was ended, this function should never resolve.
-        await new Promise(() => {});
-      }
-      return result.value;
+    let result = await this.next();
+    if (result.done) {
+      // If stream was ended, this function should never resolve.
+      await new Promise(() => {});
     }
+    return result.value;
   }
 
   [Symbol.asyncIterator]() {
-    return this._asyncIteratorFactory();
+    return this.createAsyncIterator();
   }
 }
 

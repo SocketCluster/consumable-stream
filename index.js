@@ -2,7 +2,7 @@ const MUST_OVERRIDE_METHOD_MESSAGE = 'Method must be overriden by subclass';
 
 class AsyncIterableStream {
   next() {
-    throw new TypeError(MUST_OVERRIDE_METHOD_MESSAGE);
+    return this.createAsyncIterator().next();
   }
 
   createAsyncIterator() {

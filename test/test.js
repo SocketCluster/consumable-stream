@@ -51,18 +51,6 @@ describe('AsyncIterableStream', () => {
       cancelAllPendingWaits();
     });
 
-    it('should throw error if next() is invoked directly on the abstract class', async () => {
-      let result;
-      let error;
-      try {
-        result = abstractStream.next();
-      } catch (err) {
-        error = err;
-      }
-      assert.equal(error.name, 'TypeError');
-      assert.equal(error.message, 'Method must be overriden by subclass');
-    });
-
     it('should throw error if createAsyncIterator() is invoked directly on the abstract class', async () => {
       let result;
       let error;

@@ -44,9 +44,7 @@ class AsyncIterableStream {
 function wait(timeout) {
   let id;
   let promise = new Promise((resolve) => {
-    id = setTimeout(() => {
-      resolve();
-    }, timeout);
+    id = setTimeout(resolve, timeout);
   });
   return {id, promise};
 }

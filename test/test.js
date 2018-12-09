@@ -122,55 +122,5 @@ describe('AsyncIterableStream', () => {
       nextPacket = await stream.once();
       assert.equal(nextPacket, 2);
     });
-
-    it('should receive next packet asynchronously when once() method is used and sufficiently long timeout values are provided', async () => {
-      let nextPacket = await stream.once(30);
-      assert.equal(nextPacket, 0);
-
-      nextPacket = await stream.once(30);
-      assert.equal(nextPacket, 1);
-
-      nextPacket = await stream.once(30);
-      assert.equal(nextPacket, 2);
-    });
-
-    it('should throw error if timeout value is specified and it occurs before the next once() value is received', async () => {
-      let nextPacket;
-      let error;
-      try {
-        // Set the timeout to 10 ms. Next packet is in 20 ms.
-        nextPacket = await stream.once(10);
-      } catch (err) {
-        error = err;
-      }
-      assert.equal(nextPacket, null);
-      assert.notEqual(error, null);
-      assert.equal(error.name, 'TimeoutError');
-    });
-  });
-
-  describe('AsyncIterableStream subclass - Inactive stream', () => {
-    let stream;
-
-    beforeEach(async () => {
-      stream = new AsyncIterableStreamSubclass([new Promise(() => {})]);
-    });
-
-    afterEach(async () => {
-      cancelAllPendingWaits();
-    });
-
-    it('should throw error if once() does not resolve before a specified timeout', async () => {
-      let nextPacket;
-      let error;
-      try {
-        nextPacket = await stream.once(100);
-      } catch (err) {
-        error = err;
-      }
-      assert.equal(nextPacket, null);
-      assert.notEqual(error, null);
-      assert.equal(error.name, 'TimeoutError');
-    });
   });
 });

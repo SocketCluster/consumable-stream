@@ -17,9 +17,10 @@ class AsyncIterableStream {
   }
 
   createAsyncIterable(timeout) {
+    let asyncIterator = this.createAsyncIterator(timeout);
     return {
       [Symbol.asyncIterator]: () => {
-        return this.createAsyncIterator(timeout);
+        return asyncIterator;
       }
     }
   }

@@ -1,4 +1,4 @@
-const AsyncIterableStream = require('../index');
+const ConsumableStream = require('../index');
 const assert = require('assert');
 
 let pendingTimeoutSet = new Set();
@@ -19,7 +19,7 @@ function cancelAllPendingWaits() {
   }
 }
 
-class AsyncIterableStreamSubclass extends AsyncIterableStream {
+class ConsumableStreamSubclass extends ConsumableStream {
   constructor(dataPromiseList) {
     super();
     this._dataPromiseList = dataPromiseList;
@@ -33,13 +33,13 @@ class AsyncIterableStreamSubclass extends AsyncIterableStream {
   }
 }
 
-describe('AsyncIterableStream', () => {
+describe('ConsumableStream', () => {
 
-  describe('AsyncIterableStream abstract class', () => {
+  describe('ConsumableStream abstract class', () => {
     let abstractStream;
 
     beforeEach(async () => {
-      abstractStream = new AsyncIterableStream();
+      abstractStream = new ConsumableStream();
     });
 
     afterEach(async () => {
@@ -59,7 +59,7 @@ describe('AsyncIterableStream', () => {
     });
   });
 
-  describe('AsyncIterableStream subclass - Active stream', () => {
+  describe('ConsumableStream subclass - Active stream', () => {
     let stream;
 
     beforeEach(async () => {
@@ -71,7 +71,7 @@ describe('AsyncIterableStream', () => {
       })
       .reverse();
 
-      stream = new AsyncIterableStreamSubclass(streamData);
+      stream = new ConsumableStreamSubclass(streamData);
     });
 
     afterEach(async () => {

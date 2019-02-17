@@ -1,7 +1,7 @@
 # async-iterable-stream
 A readable stream which can be iterated over using a for-await-of loop or using a while loop with await inside.
 
-The `AsyncIterableStream` constructor is an abstract class which must be subclassed. Its `next()` and `createAsyncIterator()` methods must be overriden.
+The `AsyncIterableStream` constructor is an abstract class which must be subclassed. Its `next()` and `createConsumer()` methods must be overriden.
 
 For a concrete subclass of `AsyncIterableStream`, see `WritableAsyncIterableStream`: https://github.com/SocketCluster/writable-async-iterable-stream
 

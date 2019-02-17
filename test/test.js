@@ -25,7 +25,7 @@ class AsyncIterableStreamSubclass extends AsyncIterableStream {
     this._dataPromiseList = dataPromiseList;
   }
 
-  async *createAsyncIterator() {
+  async *createConsumer() {
     while (this._dataPromiseList.length) {
       let result = await this._dataPromiseList[this._dataPromiseList.length - 1];
       yield result;
@@ -46,11 +46,11 @@ describe('AsyncIterableStream', () => {
       cancelAllPendingWaits();
     });
 
-    it('should throw error if createAsyncIterator() is invoked directly on the abstract class', async () => {
+    it('should throw error if createConsumer() is invoked directly on the abstract class', async () => {
       let result;
       let error;
       try {
-        result = abstractStream.createAsyncIterator();
+        result = abstractStream.createConsumer();
       } catch (err) {
         error = err;
       }

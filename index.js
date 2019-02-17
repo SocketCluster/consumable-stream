@@ -1,6 +1,6 @@
-class AsyncIterableStream {
+class ConsumableStream {
   async next(timeout) {
-    let asyncIterator = this.createAsyncIterator(timeout);
+    let asyncIterator = this.createConsumer(timeout);
     let result = await asyncIterator.next();
     asyncIterator.return();
     return result;
@@ -15,12 +15,12 @@ class AsyncIterableStream {
     return result.value;
   }
 
-  createAsyncIterator() {
+  createConsumer() {
     throw new TypeError('Method must be overriden by subclass');
   }
 
-  createAsyncIterable(timeout) {
-    let asyncIterator = this.createAsyncIterator(timeout);
+  createConsumable(timeout) {
+    let asyncIterator = this.createConsumer(timeout);
     return {
       [Symbol.asyncIterator]: () => {
         return asyncIterator;
@@ -29,8 +29,8 @@ class AsyncIterableStream {
   }
 
   [Symbol.asyncIterator]() {
-    return this.createAsyncIterator();
+    return this.createConsumer();
   }
 }
 
-module.exports = AsyncIterableStream;
+module.exports = ConsumableStream;

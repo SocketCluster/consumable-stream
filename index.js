@@ -19,15 +19,6 @@ class ConsumableStream {
     throw new TypeError('Method must be overriden by subclass');
   }
 
-  createConsumable(timeout) {
-    let asyncIterator = this.createConsumer(timeout);
-    return {
-      [Symbol.asyncIterator]: () => {
-        return asyncIterator;
-      }
-    }
-  }
-
   [Symbol.asyncIterator]() {
     return this.createConsumer();
   }

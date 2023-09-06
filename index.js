@@ -9,8 +9,17 @@ class ConsumableStream {
   async once(timeout) {
     let result = await this.next(timeout);
     if (result.done) {
-      // If stream was ended, this function should never resolve.
-      await new Promise(() => {});
+      // If stream was ended, this function should never resolve unless
+      // there is a timeout; in that case, it should reject early.
+      if (timeout == null) {
+        await new Promise(() => {});
+      } else {
+        let error = new Error(
+          'Stream consumer operation timed out early because stream ended'
+        );
+        error.name = 'TimeoutError';
+        throw error;
+      }
     }
     return result.value;
   }
@@ -25,3 +34,4 @@ class ConsumableStream {
 }
 
 module.exports = ConsumableStream;
+
